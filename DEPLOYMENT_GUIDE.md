@@ -98,3 +98,14 @@ The Admin Console lives in `/admin-dashboard/` completely separate from the Andr
 
 - **Privacy Policy Summary:** SMILE collects your Google Sign-In account identifier, display name, unique `@smileId`, and optional mobile number (stored as a salted SHA-256 hash for contact discovery). Direct 1-to-1 text messages are encrypted end-to-end on device using ECDH (`secp256r1`) + AES-256-GCM. Contacts and location are accessed strictly upon explicit user action. You may export chats or permanently delete your account at any time inside **Settings → Delete Account**.
 - **Terms of Service Summary:** Users must not send spam, harassment, unlawful content, or impersonate others. Admins review abuse reports in the isolated Operations Console and may suspend violating accounts.
+
+---
+
+## 7. GitHub Actions CI/CD Workflows (`.github/workflows/`)
+
+- **`android-ci.yml` (`SMILE Android CI`):** Runs automatically on `push` / `pull_request` to `main` or `master` (and manual trigger). Restores `debug.keystore`, runs unit tests, builds the Debug APK (`app/build/outputs/apk/debug/*.apk`), uploads build/test artifacts, and runs the Firestore Security Rules test suite (`firestore.test.js`) against the Firebase Emulator.
+- **`android-release.yml` (`SMILE Release APK & AAB`):** Runs on `v*` git tags or manual `workflow_dispatch` to assemble signed `.apk` and `.aab` release artifacts. Before running it, add these 3 secrets under **GitHub Repo → Settings → Secrets and variables → Actions**:
+  - `ANDROID_KEYSTORE_BASE64`: Output of `base64 -w 0 my-upload-key.jks` (macOS: `base64 -i my-upload-key.jks`)
+  - `STORE_PASSWORD`: Your keystore password
+  - `KEY_PASSWORD`: Your `upload` key alias password
+
