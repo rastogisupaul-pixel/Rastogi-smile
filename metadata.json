@@ -1,0 +1,6 @@
+{
+  "name": "SMILE",
+  "description": "Real-time messaging, voice & video calling, status updates, and communities Android app.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMILE — Owner Admin Console</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo-box" aria-hidden="true">
+        <svg viewBox="0 0 64 64" width="38" height="38">
+          <rect x="2" y="2" width="60" height="60" rx="16" fill="#FFD600" stroke="#FFFFFF" stroke-width="3"/>
+          <path d="M16 20 C16 15, 48 15, 48 20 L48 39 C48 44, 34 44, 27 44 L19 50 L21 43 C17 42, 16 40, 16 39 Z"
+                fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linejoin="round"/>
+          <circle cx="26" cy="27" r="2.5" fill="#111111"/>
+          <circle cx="38" cy="27" r="2.5" fill="#111111"/>
+          <path d="M25 33 Q32 40 39 33" fill="none" stroke="#111111" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <h1>SMILE Admin Console</h1>
+        <p class="tagline">बात करें, मुस्कुराएं! • Owner-Only Operations</p>
+      </div>
+    </div>
+    <div class="auth-controls">
+      <span id="admin-badge" class="badge hidden"></span>
+      <button id="btn-signin" class="btn-primary">Sign in with Google (Admin)</button>
+      <button id="btn-signout" class="btn-outline hidden">Sign Out</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="login-gate" class="card gate-card">
+      <h2>Owner Authentication Required</h2>
+      <p>
+        This standalone web dashboard is strictly restricted by Firestore Security Rules to verified owner/admin accounts
+        (<code>bhatiyaofficial@gmail.com</code> or <code>/admins/{uid}</code>). Normal Android app users have zero access.
+      </p>
+      <div class="form-row">
+        <label for="web-api-key">Firebase Web API Key (from Project Settings → General)</label>
+        <input id="web-api-key" type="text" placeholder="Paste Firebase Web API key..." />
+      </div>
+      <p class="hint">
+        Firestore Database ID: <code>ai-studio-android-smile-0f5ce38c-b39c-4abc-a026-9d63783bf188</code>
+      </p>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-label">Registered Users</span>
+          <strong id="stat-users">0</strong>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Active Chats & Groups</span>
+          <strong id="stat-chats">0</strong>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Open Abuse / Bug Reports</span>
+          <strong id="stat-reports">0</strong>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Call Logs</span>
+          <strong id="stat-calls">0</strong>
+        </div>
+      </div>
+
+      <div class="grid-two">
+        <section class="card">
+          <div class="card-header">
+            <h2>Broadcast App Announcement</h2>
+          </div>
+          <form id="announcement-form" class="stack">
+            <input id="ann-title" type="text" maxlength="100" placeholder="Announcement title..." required />
+            <textarea id="ann-body" rows="3" maxlength="1000" placeholder="Message for all SMILE users..." required></textarea>
+            <button type="submit" class="btn-primary">Publish Announcement</button>
+          </form>
+          <div id="announcements-list" class="list"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <h2>Moderation & Bug Reports</h2>
+          </div>
+          <div id="reports-list" class="list"></div>
+        </section>
+      </div>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>User Directory & Account Controls</h2>
+          <input id="user-search" type="search" placeholder="Filter by name, @smileId, or phone..." />
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Smile ID</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="users-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Admin Audit Logs</h2>
+        </div>
+        <div id="audit-list" class="list"></div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
